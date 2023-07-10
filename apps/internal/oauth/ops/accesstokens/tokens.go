@@ -191,6 +191,9 @@ type TokenResponse struct {
 	AdditionalFields map[string]interface{}
 
 	scopesComputed bool
+
+	//reference to popkey associated with this token
+	poPKey PoPKey
 }
 
 // ComputeScope computes the final scopes based on what was granted by the server and
