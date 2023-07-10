@@ -193,7 +193,7 @@ type TokenResponse struct {
 	scopesComputed bool
 
 	//reference to popkey associated with this token
-	poPKey PoPKey
+	PoPKey
 }
 
 // ComputeScope computes the final scopes based on what was granted by the server and

@@ -380,8 +380,11 @@ func (c Client) FromSamlGrant(ctx context.Context, authParameters authority.Auth
 
 func (c Client) doTokenResp(ctx context.Context, authParams authority.AuthParams, qv url.Values) (TokenResponse, error) {
 	resp := TokenResponse{}
-	resp.poPKey = getSwPoPKey()
-	qv.Set("req_cnf", resp.poPKey.ReqCnf())
+	if authParams.WithPoP {
+		qv.Set("token_type", "pop")
+		resp.PoPKey = getSwPoPKey()
+		qv.Set("req_cnf", resp.PoPKey.ReqCnf())
+	}
 	err := c.Comm.URLFormCall(ctx, authParams.Endpoints.TokenEndpoint, qv, &resp)
 	if err != nil {
 		return resp, err

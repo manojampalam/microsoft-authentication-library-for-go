@@ -137,6 +137,15 @@ func New(clientID string, options ...Option) (Client, error) {
 	return Client{base}, nil
 }
 
+func NewWithPoP(clientID string, options ...Option) (Client, error) {
+	c, err := New(clientID, options...)
+	if err != nil {
+		return c, err
+	}
+	c.base.AuthParams.WithPoP = true
+	return c, nil
+}
+
 // authCodeURLOptions contains options for AuthCodeURL
 type authCodeURLOptions struct {
 	claims, loginHint, tenantID, domainHint string
